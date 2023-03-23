@@ -1,6 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import { Container } from "./styles";
 
-interface IMovieCard {
+interface IComicCard {
   comic: {
     id: number;
     title: string;
@@ -12,9 +13,11 @@ interface IMovieCard {
   };
 }
 
-export const MovieCard = ({ comic }: IMovieCard) => {
+export const ComicCard = ({ comic }: IComicCard) => {
+  const navigate = useNavigate();
+
   return (
-    <Container>
+    <Container onClick={() => navigate(`comic/${comic.id}`)}>
       <img src={comic.thumbnail} alt={`Imagem da hq ${comic.title}`} />
       <div>
         <h6 className="title">{comic.title}</h6>

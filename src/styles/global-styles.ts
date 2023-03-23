@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
     *, body{
@@ -11,7 +11,22 @@ export const GlobalStyle = createGlobalStyle`
     body{
         font-family: sans-serif;
     }
-    .dad {
-        width: 100vw
+    button {
+        border: none;
+        cursor: pointer;
+          &:active,
+          &:hover,
+          &:focus {
+              filter: brightness(70%)
+          }
     }
+    ul {
+        list-style: none
+    }
+`;
+
+export const flexCenter = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

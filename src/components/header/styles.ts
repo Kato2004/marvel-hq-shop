@@ -16,15 +16,21 @@ export const Container = styled.header`
   }
   nav {
     margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
     button {
       background-color: transparent;
       border: none;
       cursor: pointer;
+      svg {
+        font-size: 40px;
+        color: #fff;
+      }
+      .cart-icon {
+        font-size: 32px;
+      }
     }
-  }
-  .menu-icon {
-    font-size: 40px;
-    color: #fff;
   }
 
   @media (min-width: 768px) {

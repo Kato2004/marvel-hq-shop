@@ -5,20 +5,21 @@ import {
 } from "react-icons/ai";
 
 import { Loading } from "../../components/loading";
-import { MovieCard } from "../../components/movie-card/index";
+import { ComicCard } from "../../components/comic-card/index";
 import { fetchDataAsync } from "../../core/services/get-data";
 import { Container, MovieGrid, SwitchPageContainer } from "./styles";
 
 export const Home = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [api, setApi] = useState<IApiResponse | null>(null);
+  const [api, setApi] = useState<IApiResponse<IComics[]> | null>(null);
 
   useEffect(() => {
     setIsLoading(true);
-    console.log("APi value:" + api?.data.results.length);
     setApi(null);
-    const res = fetchDataAsync<IApiResponse>(`comics?offset=${pageNumber}`);
+    const res = fetchDataAsync<IApiResponse<IComics[]>>(
+      `comics?offset=${pageNumber}&`
+    );
     res
       .then((data) => {
         setApi(data);
@@ -26,8 +27,6 @@ export const Home = () => {
       .finally(() => {
         setIsLoading(false);
       });
-    console.log("APi value:" + api?.data.results.length);
-    console.log(pageNumber);
   }, [pageNumber]);
 
   return (
@@ -46,7 +45,7 @@ export const Home = () => {
         {api &&
           api.data.results.map((value) => {
             return (
-              <MovieCard
+              <ComicCard
                 key={value.id}
                 comic={{
                   id: value.id,

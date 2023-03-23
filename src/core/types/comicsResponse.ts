@@ -1,22 +1,25 @@
-interface IApiResponse {
+interface IApiResponse<T> {
   code: number;
   status: string;
   copyright: string;
   attributionText: string;
   attributionHTML: string;
-  data: IComicData;
+  data: IComicData<T>;
   etag: string;
 }
 
-interface IComicData {
+interface IComicData<T> {
   offset: number;
   limit: number;
   total: number;
   count: number;
-  results: IComics[];
+  results: T;
 }
 
 interface IComics {
+  isbn: string;
+  issn: string;
+  upc: string;
   id: number;
   title: string;
   pageCount: number;
@@ -71,3 +74,5 @@ interface IComics {
     items: { resourceURI: string; name: string; role: string }[];
   };
 }
+
+type a = { [data: string]: IComics | IComics[] };
