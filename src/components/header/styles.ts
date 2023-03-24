@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { flexCenter } from "../../styles/global-styles";
 
 export const Container = styled.header`
   height: 80px;
@@ -20,6 +21,7 @@ export const Container = styled.header`
     justify-content: center;
     gap: 5px;
     button {
+      position: relative;
       background-color: transparent;
       border: none;
       cursor: pointer;
@@ -29,6 +31,18 @@ export const Container = styled.header`
       }
       .cart-icon {
         font-size: 32px;
+      }
+      .cart-quantity {
+        position: absolute;
+        top: 20px;
+        right: 15px;
+        background-color: #fff;
+        ${flexCenter}
+        font-size: 14px;
+        width: 20px;
+        height: 20px;
+        padding: 5px;
+        border-radius: 100%;
       }
     }
   }

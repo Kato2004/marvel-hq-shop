@@ -12,13 +12,16 @@ import {
   ShoppingArea,
 } from "./styles";
 import { fetchDataAsync } from "../../core/services/get-data";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Loading } from "../../components/loading";
+import { CartContext, ICart } from "../../core/contexts/cart";
 
 export const ComicPage = () => {
   const { id: paramId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [api, setApi] = useState<IApiResponse<IComics[]> | null>(null);
+
+  const { setValueCart } = useContext(CartContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -33,6 +36,15 @@ export const ComicPage = () => {
       });
   }, []);
 
+  const addCart = (
+    id: number,
+    price: number,
+    thumbnail: string,
+    title: string
+  ) => {
+    setValueCart({ id, price, thumbnail, title });
+  };
+
   return (
     <Container>
       {isLoading && <Loading />}
@@ -44,7 +56,7 @@ export const ComicPage = () => {
                 <ImgContainer>
                   <img
                     src={`${value.thumbnail.path}.${value.thumbnail.extension}`}
-                    alt=""
+                    alt={`Capa da hq ${value.title}`}
                   />
                 </ImgContainer>
                 <Header>
@@ -57,7 +69,17 @@ export const ComicPage = () => {
                   </div>
                   <div className="bottom">
                     <button className="buy">Comprar</button>
-                    <button className="add-cart">
+                    <button
+                      onClick={() =>
+                        addCart(
+                          value.id,
+                          value.prices[0].price,
+                          `${value.thumbnail.path}.${value.thumbnail.extension}`,
+                          value.title
+                        )
+                      }
+                      className="add-cart"
+                    >
                       <CartIcon />
                     </button>
                   </div>

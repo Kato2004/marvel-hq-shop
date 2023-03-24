@@ -15,8 +15,7 @@ export const GlobalStyle = createGlobalStyle`
         border: none;
         cursor: pointer;
           &:active,
-          &:hover,
-          &:focus {
+          &:hover {
               filter: brightness(70%)
           }
     }

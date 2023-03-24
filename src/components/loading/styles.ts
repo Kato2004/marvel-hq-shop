@@ -22,6 +22,8 @@ export const Square = styled.div`
       transform: rotate(360deg);
     }
   }
+  position: static;
+  top: 0;
   width: 50px;
   height: 50px;
   border-radius: 2px;
