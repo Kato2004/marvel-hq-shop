@@ -1,4 +1,4 @@
-interface IComicData<T> {
+export interface IComicData<T> {
   offset: number;
   limit: number;
   total: number;

@@ -5,10 +5,11 @@ import { useParams } from "react-router-dom";
 import { Loading } from "../../components/loading";
 import { CartContext } from "../../core/contexts/cart";
 import { fetchDataAsync } from "../../core/services/get-data";
+import { IApiResponse, IComicData } from "../../core/types/api-response";
 import { IComics } from "../../core/types/comic";
+import { PageContainer } from "../../styles/container";
 import {
   Authors,
-  Container,
   Description,
   Details,
   Header,
@@ -16,21 +17,28 @@ import {
   ImgContainer,
   ShoppingArea,
 } from "./styles";
-import { IApiResponse } from "../../core/types/api-response";
 
 export const ComicPage = () => {
   const { id: paramId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  const [api, setApi] = useState<IApiResponse<IComics[]> | null>(null);
+  const [comicData, setComicData] = useState<IComicData<IComics[]> | null>(
+    null
+  );
 
-  const { setValueCart } = useContext(CartContext);
+  const { cart, addComicToCart } = useContext(CartContext);
 
   useEffect(() => {
     setIsLoading(true);
-    setApi(null);
+    setComicData(null);
     fetchDataAsync<IApiResponse<IComics[]>>(`comics/${paramId}?`)
-      .then((data) => {
-        setApi(data);
+      .then((res) => {
+        const dataCopy = JSON.parse(JSON.stringify(res.data));
+        dataCopy.results.forEach((comic: IComics) => {
+          if (comic.prices[0].price === 0) {
+            comic.prices[0].price = Number((Math.random() * 10).toFixed(2));
+          }
+        });
+        setComicData(dataCopy);
       })
       .finally(() => {
         setIsLoading(false);
@@ -42,13 +50,16 @@ export const ComicPage = () => {
     price: number,
     thumbnail: string,
     title: string
-  ) => setValueCart({ id, price, thumbnail, title, quantity: 1 });
+  ) => {
+    console.log(cart);
+    addComicToCart({ id, price, thumbnail, title, quantity: 1 });
+  };
 
   return (
-    <Container>
+    <PageContainer>
       {isLoading && <Loading />}
-      {api &&
-        api.data.results.map((value) => {
+      {comicData &&
+        comicData.results.map((value) => {
           return (
             <div key={value.id}>
               <div className="top">
@@ -133,6 +144,6 @@ export const ComicPage = () => {
             </div>
           );
         })}
-    </Container>
+    </PageContainer>
   );
 };

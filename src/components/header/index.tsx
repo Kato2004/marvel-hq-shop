@@ -1,12 +1,24 @@
 import { AiOutlineShoppingCart as CartIcon } from "react-icons/ai";
-import { BiMenu as MenuIcon } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Container } from "./styles";
+import { useState, useEffect, useContext } from "react";
+import { CartContext } from "../../core/contexts/cart";
 
 export const Header = () => {
   const navigate = useNavigate();
-  let a = 0;
+  const { cart } = useContext(CartContext);
+
+  const [totalValueComics, setTotalValueComics] = useState(0);
+
+  useEffect(() => {
+    const updateTotalComicsInCart = () => {
+      let total = 0;
+      cart.forEach((value) => (total += value.quantity));
+      setTotalValueComics(total);
+    };
+    updateTotalComicsInCart();
+  }, [cart]);
 
   return (
     <Container>
@@ -14,12 +26,10 @@ export const Header = () => {
       <nav>
         <button onClick={() => navigate("/cart")}>
           <CartIcon className="cart-icon" />
-          {a > 0 && <span className="cart-quantity">{a}</span>}
+          {totalValueComics > 0 && (
+            <span className="cart-quantity">{totalValueComics}</span>
+          )}
         </button>
-        <button>
-          <MenuIcon className="menu-icon" />
-        </button>
-        <ul></ul>
       </nav>
     </Container>
   );

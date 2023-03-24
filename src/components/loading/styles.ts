@@ -1,11 +1,10 @@
 import styled from "styled-components";
+import { flexCenter } from "../../styles/global-styles";
 
 export const Container = styled.div`
   height: 90vh;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${flexCenter}
 `;
 
 export const Square = styled.div`

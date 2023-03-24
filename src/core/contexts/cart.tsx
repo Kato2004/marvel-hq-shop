@@ -1,25 +1,28 @@
 import {
   ReactNode,
   createContext,
+  useCallback,
+  useEffect,
   useMemo,
   useState,
-  useEffect,
-  useCallback,
 } from "react";
+
 import { ContextValues, ICart } from "../types/cart";
 
 interface ICartProvider {
   children: ReactNode;
 }
 
-const initial: ContextValues = {
+const defaultCartContextValues: ContextValues = {
   cart: [],
-  setValueCart: () => {},
+  addComicToCart: () => {},
   updateQuantityComics: () => {},
   deleteComic: () => {},
 };
 
-export const CartContext = createContext<ContextValues>(initial);
+export const CartContext = createContext<ContextValues>(
+  defaultCartContextValues
+);
 
 export const CartProvider = ({ children }: ICartProvider) => {
   const [cart, setCart] = useState<ICart[]>([]);
@@ -33,10 +36,12 @@ export const CartProvider = ({ children }: ICartProvider) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    if (cart[0] && cart[0].id) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
   }, [cart]);
 
-  const setValueCart = (comic: ICart) => {
+  const addComicToCart = (comic: ICart) => {
     const comicsWithoutRepeats = cart.filter((item) => item.id === comic.id);
 
     if (comicsWithoutRepeats.length >= 1) comicsWithoutRepeats[0].quantity += 1;
@@ -64,11 +69,11 @@ export const CartProvider = ({ children }: ICartProvider) => {
   const cartProviderValue = useMemo(
     () => ({
       cart,
-      setValueCart,
+      addComicToCart,
       updateQuantityComics,
       deleteComic,
     }),
-    [cart, setValueCart, updateQuantityComics, deleteComic]
+    [cart, addComicToCart, updateQuantityComics, deleteComic]
   );
 
   return (

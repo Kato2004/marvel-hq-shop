@@ -7,57 +7,68 @@ import {
 import { ComicCard } from "../../components/comic-card/index";
 import { Loading } from "../../components/loading";
 import { fetchDataAsync } from "../../core/services/get-data";
-import { Container, MovieGrid, SwitchPageContainer } from "./styles";
+import { IApiResponse, IComicData } from "../../core/types/api-response";
 import { IComics } from "../../core/types/comic";
-import { IApiResponse } from "../../core/types/api-response";
+import { PageContainer } from "../../styles/container";
+import { ComicsArea, SwitchPageContainer } from "./styles";
 
 export const Home = () => {
-  const [pageNumber, setPageNumber] = useState(0);
+  const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [apiResponse, setApiResponse] = useState<IApiResponse<
+  const [comicResponse, setComicResponse] = useState<IComicData<
     IComics[]
   > | null>(null);
 
   useEffect(() => {
     setIsLoading(true);
-    setApiResponse(null);
+    setComicResponse(null);
 
-    fetchDataAsync<IApiResponse<IComics[]>>(`comics?offset=${pageNumber}&`)
-      .then((data) => setApiResponse(data))
+    fetchDataAsync<IApiResponse<IComics[]>>(`comics?offset=${offset}&`)
+      .then((res) => {
+        res.data.results.forEach((comic) => {
+          if (comic.prices[0].price === 0) {
+            comic.prices[0].price = Math.random() * 100;
+          }
+        });
+        setComicResponse(res.data);
+      })
       .finally(() => setIsLoading(false));
-  }, [pageNumber]);
+  }, [offset]);
 
   return (
-    <Container>
+    <PageContainer>
       {isLoading && <Loading />}
-      {!isLoading && !apiResponse && "ERRO"}
-      {!isLoading && apiResponse && (
+      {!isLoading && !comicResponse && "ERRO"}
+      {!isLoading && comicResponse && (
         <>
           <SwitchPageContainer>
-            <button onClick={() => setPageNumber((prev) => prev - 20)}>
+            <button
+              onClick={() =>
+                offset / 20 + 1 != 1 && setOffset((prev) => prev - 20)
+              }
+            >
               <ArrowLeft />
             </button>
-            <span>{pageNumber / 20 + 1}</span>
-            <button onClick={() => setPageNumber((prev) => prev + 20)}>
+            <span>{offset / 20 + 1}</span>
+            <button onClick={() => setOffset((prev) => prev + 20)}>
               <ArrowRight />
             </button>
           </SwitchPageContainer>
-          <MovieGrid>
-            {apiResponse &&
-              apiResponse.data.results.map((value) => (
+          <ComicsArea>
+            {comicResponse &&
+              comicResponse.results.map((value) => (
                 <ComicCard
                   key={value.id}
                   comic={{
                     id: value.id,
-                    prices: value.prices,
                     thumbnail: `${value.thumbnail.path}.${value.thumbnail.extension}`,
                     title: value.title,
                   }}
                 />
               ))}
-          </MovieGrid>
+          </ComicsArea>
         </>
       )}
-    </Container>
+    </PageContainer>
   );
 };

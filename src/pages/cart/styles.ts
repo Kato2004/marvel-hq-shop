@@ -1,17 +1,10 @@
 import styled from "styled-components";
 
-export const Container = styled.main`
+export const CardContainer = styled.div`
   width: 100%;
-  padding: 15px 10px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-
-  .cart-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
+  gap: 5px;
 `;
 
 export const ConfirmPurchase = styled.div`

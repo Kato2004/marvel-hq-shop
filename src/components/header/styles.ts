@@ -51,9 +51,6 @@ export const Container = styled.header`
     padding: 10px 30px;
     nav {
       margin-bottom: 10px;
-      .menu-icon {
-        font-size: 60px;
-      }
     }
   }
 `;
