@@ -56,6 +56,7 @@ export const ComicPage = () => {
                   <img
                     src={`${value.thumbnail.path}.${value.thumbnail.extension}`}
                     alt={`Capa da hq ${value.title}`}
+                    loading="lazy"
                   />
                 </ImgContainer>
                 <Header>
@@ -120,8 +121,9 @@ export const ComicPage = () => {
                       return (
                         <img
                           src={`${imgs.path}.${imgs.extension}`}
-                          alt=""
+                          alt="Imagens sobre a comic"
                           key={imgs.path}
+                          loading="lazy"
                         />
                       );
                     })}

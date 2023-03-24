@@ -19,6 +19,7 @@ export const CartCard = ({
         <img
           src={comicCart.thumbnail}
           alt={`Imagem da hq ${comicCart.title}`}
+          loading="lazy"
         />
       </div>
       <div className="comic-info">

@@ -31,29 +31,33 @@ export const Home = () => {
     <Container>
       {isLoading && <Loading />}
       {!isLoading && !apiResponse && "ERRO"}
-      <SwitchPageContainer>
-        <button onClick={() => setPageNumber((prev) => prev - 20)}>
-          <ArrowLeft />
-        </button>
-        <span>{pageNumber / 20 + 1}</span>
-        <button onClick={() => setPageNumber((prev) => prev + 20)}>
-          <ArrowRight />
-        </button>
-      </SwitchPageContainer>
-      <MovieGrid>
-        {apiResponse &&
-          apiResponse.data.results.map((value) => (
-            <ComicCard
-              key={value.id}
-              comic={{
-                id: value.id,
-                prices: value.prices,
-                thumbnail: `${value.thumbnail.path}.${value.thumbnail.extension}`,
-                title: value.title,
-              }}
-            />
-          ))}
-      </MovieGrid>
+      {!isLoading && apiResponse && (
+        <>
+          <SwitchPageContainer>
+            <button onClick={() => setPageNumber((prev) => prev - 20)}>
+              <ArrowLeft />
+            </button>
+            <span>{pageNumber / 20 + 1}</span>
+            <button onClick={() => setPageNumber((prev) => prev + 20)}>
+              <ArrowRight />
+            </button>
+          </SwitchPageContainer>
+          <MovieGrid>
+            {apiResponse &&
+              apiResponse.data.results.map((value) => (
+                <ComicCard
+                  key={value.id}
+                  comic={{
+                    id: value.id,
+                    prices: value.prices,
+                    thumbnail: `${value.thumbnail.path}.${value.thumbnail.extension}`,
+                    title: value.title,
+                  }}
+                />
+              ))}
+          </MovieGrid>
+        </>
+      )}
     </Container>
   );
 };

@@ -9,6 +9,6 @@ export interface ICart {
 export interface ContextValues {
   cart: ICart[];
   setValueCart: (comic: ICart) => void;
-  updateQuantity: (comicId: number, newQuantity: number) => void;
-  deleteItem: (comicId: number) => void;
+  updateQuantityComics: (comicId: number, newQuantity: number) => void;
+  deleteComic: (comicId: number) => void;
 }

@@ -1,4 +1,11 @@
-import { ReactNode, createContext, useMemo, useState, useEffect } from "react";
+import {
+  ReactNode,
+  createContext,
+  useMemo,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { ContextValues, ICart } from "../types/cart";
 
 interface ICartProvider {
@@ -8,8 +15,8 @@ interface ICartProvider {
 const initial: ContextValues = {
   cart: [],
   setValueCart: () => {},
-  updateQuantity: () => {},
-  deleteItem: () => {},
+  updateQuantityComics: () => {},
+  deleteComic: () => {},
 };
 
 export const CartContext = createContext<ContextValues>(initial);
@@ -25,38 +32,43 @@ export const CartProvider = ({ children }: ICartProvider) => {
     }
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
   const setValueCart = (comic: ICart) => {
     const comicsWithoutRepeats = cart.filter((item) => item.id === comic.id);
 
     if (comicsWithoutRepeats.length >= 1) comicsWithoutRepeats[0].quantity += 1;
     if (comicsWithoutRepeats.length == 0) setCart((prev) => [...prev, comic]);
-
-    localStorage.setItem("cart", JSON.stringify(cart));
   };
 
-  const updateQuantity = (comicId: number, newQuantity: number) => {
-    const newUpdatedCart = cart.map((comic) => {
-      if (comic.id === comicId) return { ...comic, quantity: newQuantity };
-      return comic;
-    });
-    setCart(newUpdatedCart);
-    localStorage.setItem("cart", JSON.stringify(cart));
-  };
+  const updateQuantityComics = useCallback(
+    (comicId: number, newQuantity: number) => {
+      setCart((prevCart) =>
+        prevCart.map((comic) =>
+          comic.id === comicId ? { ...comic, quantity: newQuantity } : comic
+        )
+      );
+    },
+    [setCart]
+  );
 
-  const deleteItem = (comicId: number) => {
-    const newCart = cart.filter((item) => item.id != comicId);
-    setCart(newCart);
-    localStorage.setItem("cart", JSON.stringify(cart));
-  };
+  const deleteComic = useCallback(
+    (comicId: number) => {
+      setCart((prevCart) => prevCart.filter((comic) => comic.id !== comicId));
+    },
+    [setCart]
+  );
 
   const cartProviderValue = useMemo(
     () => ({
       cart,
       setValueCart,
-      updateQuantity,
-      deleteItem,
+      updateQuantityComics,
+      deleteComic,
     }),
-    [cart, setCart, updateQuantity, deleteItem]
+    [cart, setValueCart, updateQuantityComics, deleteComic]
   );
 
   return (

@@ -1,10 +1,11 @@
+import { useContext, useState, useEffect, memo } from "react";
+
 import { CartCard } from "../../components/cart-card";
 import { CartContext } from "../../core/contexts/cart";
 import { Container, ConfirmPurchase } from "./styles";
-import { useContext, useState, useEffect } from "react";
 
 export const Cart = () => {
-  const { cart, updateQuantity, deleteItem } = useContext(CartContext);
+  const { cart, updateQuantityComics, deleteComic } = useContext(CartContext);
   const [totalValueComics, setTotalValueComics] = useState(0);
 
   useEffect(() => {
@@ -17,16 +18,18 @@ export const Cart = () => {
     q();
   }, [cart]);
 
+  const MemoizedCartCard = memo(CartCard);
+
   return (
     <Container>
       <div className="cart-container">
         <h2>Carrinho</h2>
         {cart.map((comic) => {
           return (
-            <CartCard
+            <MemoizedCartCard
               comicCart={comic}
-              updateQuantityComics={updateQuantity}
-              deleteComic={deleteItem}
+              updateQuantityComics={updateQuantityComics}
+              deleteComic={deleteComic}
               key={comic.id}
             />
           );
