@@ -1,7 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
-import { Container } from "./styles";
-import { BiMenu as MenuIcon } from "react-icons/bi";
 import { AiOutlineShoppingCart as CartIcon } from "react-icons/ai";
+import { BiMenu as MenuIcon } from "react-icons/bi";
+import { Link, useNavigate } from "react-router-dom";
+
+import { Container } from "./styles";
 
 export const Header = () => {
   const navigate = useNavigate();

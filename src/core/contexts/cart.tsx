@@ -1,32 +1,18 @@
 import { ReactNode, createContext, useMemo, useState, useEffect } from "react";
-
-export interface ICart {
-  id: number;
-  price: number;
-  thumbnail: string;
-  title: string;
-  quantity: number;
-}
-
-interface IContextValues {
-  cart: ICart[];
-  setValueCart: (comic: ICart) => void;
-  updateQuantity: (comicId: number, newQuantity: number) => void;
-  deleteItem: (comicId: number) => void;
-}
+import { ContextValues, ICart } from "../types/cart";
 
 interface ICartProvider {
   children: ReactNode;
 }
 
-const initial: IContextValues = {
+const initial: ContextValues = {
   cart: [],
   setValueCart: () => {},
   updateQuantity: () => {},
   deleteItem: () => {},
 };
 
-export const CartContext = createContext<IContextValues>(initial);
+export const CartContext = createContext<ContextValues>(initial);
 
 export const CartProvider = ({ children }: ICartProvider) => {
   const [cart, setCart] = useState<ICart[]>([]);
@@ -40,32 +26,25 @@ export const CartProvider = ({ children }: ICartProvider) => {
   }, []);
 
   const setValueCart = (comic: ICart) => {
-    const q = cart.filter((item) => {
-      return item.id === comic.id;
-    });
-    if (q.length >= 1) q[0].quantity += 1;
-    if (q.length == 0) {
-      comic.quantity = 1;
-      setCart((prev) => [...prev, comic]);
-    }
+    const comicsWithoutRepeats = cart.filter((item) => item.id === comic.id);
+
+    if (comicsWithoutRepeats.length >= 1) comicsWithoutRepeats[0].quantity += 1;
+    if (comicsWithoutRepeats.length == 0) setCart((prev) => [...prev, comic]);
+
     localStorage.setItem("cart", JSON.stringify(cart));
   };
 
   const updateQuantity = (comicId: number, newQuantity: number) => {
-    const newCart = cart.map((comic) => {
-      if (comic.id === comicId) {
-        return { ...comic, quantity: newQuantity };
-      }
+    const newUpdatedCart = cart.map((comic) => {
+      if (comic.id === comicId) return { ...comic, quantity: newQuantity };
       return comic;
     });
-    setCart(newCart);
+    setCart(newUpdatedCart);
     localStorage.setItem("cart", JSON.stringify(cart));
   };
 
   const deleteItem = (comicId: number) => {
-    const newCart = cart.filter((item) => {
-      return item.id != comicId;
-    });
+    const newCart = cart.filter((item) => item.id != comicId);
     setCart(newCart);
     localStorage.setItem("cart", JSON.stringify(cart));
   };

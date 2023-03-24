@@ -30,7 +30,6 @@ export const ImgContainer = styled.div`
   img {
     width: 100%;
     border-radius: 5px;
-    border: 1px solid #000;
   }
 `;
 

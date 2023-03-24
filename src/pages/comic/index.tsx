@@ -1,6 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineShoppingCart as CartIcon } from "react-icons/ai";
+import { useParams } from "react-router-dom";
 
+import { Loading } from "../../components/loading";
+import { CartContext } from "../../core/contexts/cart";
+import { fetchDataAsync } from "../../core/services/get-data";
+import { IComics } from "../../core/types/comic";
 import {
   Authors,
   Container,
@@ -11,10 +16,7 @@ import {
   ImgContainer,
   ShoppingArea,
 } from "./styles";
-import { fetchDataAsync } from "../../core/services/get-data";
-import { useEffect, useState, useContext } from "react";
-import { Loading } from "../../components/loading";
-import { CartContext, ICart } from "../../core/contexts/cart";
+import { IApiResponse } from "../../core/types/api-response";
 
 export const ComicPage = () => {
   const { id: paramId } = useParams();
@@ -26,8 +28,7 @@ export const ComicPage = () => {
   useEffect(() => {
     setIsLoading(true);
     setApi(null);
-    const res = fetchDataAsync<IApiResponse<IComics[]>>(`comics/${paramId}?`);
-    res
+    fetchDataAsync<IApiResponse<IComics[]>>(`comics/${paramId}?`)
       .then((data) => {
         setApi(data);
       })
@@ -41,9 +42,7 @@ export const ComicPage = () => {
     price: number,
     thumbnail: string,
     title: string
-  ) => {
-    setValueCart({ id, price, thumbnail, title });
-  };
+  ) => setValueCart({ id, price, thumbnail, title, quantity: 1 });
 
   return (
     <Container>
