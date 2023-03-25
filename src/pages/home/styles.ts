@@ -10,6 +10,7 @@ export const ComicsArea = styled.div`
     flex-wrap: wrap;
     align-items: stretch;
   }
+  max-width: 1600px;
 `;
 
 export const SwitchPageContainer = styled.div`

@@ -65,7 +65,7 @@ export const Cart = () => {
 
   return (
     <PageContainer>
-      {cart ? (
+      {cart.length > 0 ? (
         <>
           <CardContainer className="cart-container">
             <h2>Carrinho</h2>
