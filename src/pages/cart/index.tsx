@@ -13,28 +13,24 @@ export const Cart = () => {
     rare: 0,
     commun: 0,
   });
-  const [totalValueComics, setTotalValueComics] = useState(0);
   const [inputCoupon, setInputCoupon] = useState("");
 
   const MemoizedCartCard = memo(CartCard);
 
-  useEffect(() => calculateTotalComics(), [cart]);
+  useEffect(() => {
+    const calculateTotalComics = () => {
+      let rareSubtotal = 0;
+      let communSubtotal = 0;
 
-  useEffect(
-    () => setTotalValueComics(subtotal.commun + subtotal.rare),
-    [subtotal]
-  );
-  const calculateTotalComics = () => {
-    let rareSubtotal = 0;
-    let communSubtotal = 0;
+      cart.forEach((comic) => {
+        if (comic.isRare) rareSubtotal += comic.price * comic.quantity;
+        else communSubtotal += comic.price * comic.quantity;
+      });
 
-    cart.forEach((comic) => {
-      if (comic.isRare) rareSubtotal += comic.price * comic.quantity;
-      else communSubtotal += comic.price * comic.quantity;
-    });
-
-    setSubtotal({ commun: communSubtotal, rare: rareSubtotal });
-  };
+      setSubtotal({ commun: communSubtotal, rare: rareSubtotal });
+    };
+    calculateTotalComics();
+  }, [cart]);
 
   const applyCoupon = (inputCoupon: string) => {
     let fullDiscount = {
@@ -69,7 +65,7 @@ export const Cart = () => {
 
   return (
     <PageContainer>
-      {totalValueComics != 0 ? (
+      {cart ? (
         <>
           <CardContainer className="cart-container">
             <h2>Carrinho</h2>
@@ -113,7 +109,9 @@ export const Cart = () => {
             </div>
           </Subtotal>
           <ConfirmPurchase>
-            <h2>Subtotal: R${transformPrice(totalValueComics)}</h2>
+            <h2>
+              Subtotal: R${transformPrice(subtotal.commun + subtotal.rare)}
+            </h2>
             <button>Fechar compra</button>
           </ConfirmPurchase>
         </>

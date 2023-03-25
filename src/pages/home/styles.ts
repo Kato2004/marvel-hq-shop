@@ -2,10 +2,14 @@ import styled from "styled-components";
 import { flexCenter } from "../../styles/global-styles";
 
 export const ComicsArea = styled.div`
-  width: 90%;
-  display: flex;
+  ${flexCenter}
   flex-direction: column;
   gap: 20px;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
 `;
 
 export const SwitchPageContainer = styled.div`

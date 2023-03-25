@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -22,6 +23,17 @@ export const Container = styled.div`
     }
     .price {
       margin-top: 5px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    max-width: 300px;
+    max-height: 500px;
+    img {
+      height: 100%;
+    }
+    > div {
+      min-height: 100px;
     }
   }
 `;
