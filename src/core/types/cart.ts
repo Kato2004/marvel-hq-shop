@@ -4,6 +4,7 @@ export interface ICart {
   thumbnail: string;
   title: string;
   quantity: number;
+  isRare: boolean;
 }
 
 export interface ContextValues {

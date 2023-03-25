@@ -29,4 +29,5 @@ export interface IComics {
     collectionURI: string;
     items: { resourceURI: string; name: string; role: string }[];
   };
+  rare: boolean;
 }

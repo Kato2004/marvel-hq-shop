@@ -44,7 +44,10 @@ export const CartProvider = ({ children }: ICartProvider) => {
   const addComicToCart = (comic: ICart) => {
     const comicsWithoutRepeats = cart.filter((item) => item.id === comic.id);
 
-    if (comicsWithoutRepeats.length >= 1) comicsWithoutRepeats[0].quantity += 1;
+    if (comicsWithoutRepeats.length >= 1) {
+      comicsWithoutRepeats[0].quantity += 1;
+      setCart((prev) => [...prev]);
+    }
     if (comicsWithoutRepeats.length == 0) setCart((prev) => [...prev, comic]);
   };
 

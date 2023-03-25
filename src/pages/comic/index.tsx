@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom";
 
 import { Loading } from "../../components/loading";
 import { CartContext } from "../../core/contexts/cart";
-import { fetchDataAsync } from "../../core/services/get-data";
+import { fetchDataAsync } from "../../core/helpers/get-data";
 import { IApiResponse, IComicData } from "../../core/types/api-response";
 import { IComics } from "../../core/types/comic";
 import { PageContainer } from "../../styles/container";
+import { transformPrice } from "../../core/helpers/transform-price";
 import {
   Authors,
   Description,
@@ -19,13 +20,13 @@ import {
 } from "./styles";
 
 export const ComicPage = () => {
-  const { id: paramId } = useParams();
+  const { id: paramId, rare: paramIsRare } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [comicData, setComicData] = useState<IComicData<IComics[]> | null>(
     null
   );
 
-  const { cart, addComicToCart } = useContext(CartContext);
+  const { addComicToCart } = useContext(CartContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,6 +38,7 @@ export const ComicPage = () => {
           if (comic.prices[0].price === 0) {
             comic.prices[0].price = Number((Math.random() * 10).toFixed(2));
           }
+          comic.rare = paramIsRare ? true : false;
         });
         setComicData(dataCopy);
       })
@@ -49,11 +51,9 @@ export const ComicPage = () => {
     id: number,
     price: number,
     thumbnail: string,
-    title: string
-  ) => {
-    console.log(cart);
-    addComicToCart({ id, price, thumbnail, title, quantity: 1 });
-  };
+    title: string,
+    isRare: boolean
+  ) => addComicToCart({ id, price, thumbnail, title, quantity: 1, isRare });
 
   return (
     <PageContainer>
@@ -76,7 +76,10 @@ export const ComicPage = () => {
                 </Header>
                 <ShoppingArea>
                   <div className="top">
-                    <span>US$ {value.prices[0].price}</span>
+                    {paramIsRare && <span className="is-rare">Raro</span>}
+                    <span className="price">
+                      R$ {transformPrice(value.prices[0].price)}
+                    </span>
                   </div>
                   <div className="bottom">
                     <button className="buy">Comprar</button>
@@ -86,7 +89,8 @@ export const ComicPage = () => {
                           value.id,
                           value.prices[0].price,
                           `${value.thumbnail.path}.${value.thumbnail.extension}`,
-                          value.title
+                          value.title,
+                          value.rare
                         )
                       }
                       className="add-cart"

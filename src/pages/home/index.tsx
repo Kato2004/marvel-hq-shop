@@ -6,7 +6,7 @@ import {
 
 import { ComicCard } from "../../components/comic-card/index";
 import { Loading } from "../../components/loading";
-import { fetchDataAsync } from "../../core/services/get-data";
+import { fetchDataAsync } from "../../core/helpers/get-data";
 import { IApiResponse, IComicData } from "../../core/types/api-response";
 import { IComics } from "../../core/types/comic";
 import { PageContainer } from "../../styles/container";
@@ -26,8 +26,11 @@ export const Home = () => {
     fetchDataAsync<IApiResponse<IComics[]>>(`comics?offset=${offset}&`)
       .then((res) => {
         res.data.results.forEach((comic) => {
-          if (comic.prices[0].price === 0) {
-            comic.prices[0].price = Math.random() * 100;
+          const chance = Math.random();
+          if (chance <= 0.1) {
+            comic.rare = true;
+          } else {
+            comic.rare = false;
           }
         });
         setComicResponse(res.data);
@@ -63,6 +66,7 @@ export const Home = () => {
                     id: value.id,
                     thumbnail: `${value.thumbnail.path}.${value.thumbnail.extension}`,
                     title: value.title,
+                    rare: value.rare,
                   }}
                 />
               ))}

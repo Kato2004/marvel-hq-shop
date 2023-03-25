@@ -12,12 +12,15 @@ export const Header = () => {
   const [totalValueComics, setTotalValueComics] = useState(0);
 
   useEffect(() => {
-    const updateTotalComicsInCart = () => {
+    const q = () => {
       let total = 0;
-      cart.forEach((value) => (total += value.quantity));
+      cart.forEach((value) => {
+        console.log(value.quantity);
+        total += value.quantity;
+      });
       setTotalValueComics(total);
     };
-    updateTotalComicsInCart();
+    q();
   }, [cart]);
 
   return (

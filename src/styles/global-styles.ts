@@ -22,6 +22,9 @@ export const GlobalStyle = createGlobalStyle`
     ul {
         list-style: none
     }
+    input {
+      outline: none;
+    }
 `;
 
 export const flexCenter = css`

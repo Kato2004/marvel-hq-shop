@@ -7,6 +7,7 @@ interface IComicCard {
     id: number;
     title: string;
     thumbnail: string;
+    rare: boolean;
   };
 }
 
@@ -14,7 +15,9 @@ export const ComicCard = ({ comic }: IComicCard) => {
   const navigate = useNavigate();
 
   return (
-    <Container onClick={() => navigate(`comic/${comic.id}`)}>
+    <Container
+      onClick={() => navigate(`comic/${comic.id}${comic.rare ? "/rare" : ""}`)}
+    >
       <img
         src={comic.thumbnail}
         alt={`Imagem da hq ${comic.title}`}
@@ -22,6 +25,7 @@ export const ComicCard = ({ comic }: IComicCard) => {
       />
       <div>
         <h6 className="title">{comic.title}</h6>
+        {comic.rare && "cijaksfdoak"}
       </div>
     </Container>
   );

@@ -1,3 +1,4 @@
+import { transformPrice } from "../../core/helpers/transform-price";
 import { ICart } from "../../core/types/cart";
 
 import { ComicActions, Container } from "./styles";
@@ -23,10 +24,13 @@ export const CartCard = ({
         />
       </div>
       <div className="comic-info">
-        <h4>{comicCart.title}</h4>
+        <header>
+          {comicCart.isRare && <span>Raro</span>}
+          <h4>{comicCart.title}</h4>
+        </header>
         <div className="cart-price">
-          <span>US$</span>
-          <span>{comicCart.price}</span>
+          <span>R$</span>
+          <span>{transformPrice(comicCart.price)}</span>
         </div>
         <ComicActions>
           <div>

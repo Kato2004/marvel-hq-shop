@@ -5,7 +5,7 @@ export const Container = styled.div`
   width: 100%;
   justify-content: space-between;
   padding: 10px;
-  background-color: rgb(200, 200, 200);
+  background-color: #c8c8c8;
   border-radius: 5px;
   gap: 10px;
   .img-container {
@@ -16,20 +16,30 @@ export const Container = styled.div`
   }
   .comic-info {
     width: 100%;
-    padding: 10px;
-    h4 {
-      font-weight: 500;
-      font-size: 20px;
-      margin-bottom: 10px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    header {
+      h4 {
+        font-weight: 500;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      span {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-bottom: 2px;
+        background-color: #fdff00;
+      }
     }
     .cart-price {
       span {
-        font-size: 20px;
         &:nth-child(1) {
           font-size: 20px;
         }
         &:nth-child(2) {
-          font-size: 40px;
+          font-size: 30px;
         }
       }
     }
@@ -45,7 +55,8 @@ export const ComicActions = styled.div`
     font-size: 18px;
     border-left: 1px solid #999;
     border-right: 1px solid #999;
-    background-color: #fff;
+    background-color: #e6e6e6;
+    cursor: default;
   }
   .delete-button {
     padding: 10px 20px;
@@ -55,6 +66,7 @@ export const ComicActions = styled.div`
     button {
       padding: 10px 15px;
       font-size: 18px;
+      background-color: #e6e6e6;
       &:nth-child(1) {
         border-radius: 5px 0 0 5px;
       }

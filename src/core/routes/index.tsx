@@ -11,7 +11,7 @@ export const AllRoutes = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/comic/:id" element={<ComicPage />} />
+        <Route path="/comic/:id/:rare?" element={<ComicPage />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
     </BrowserRouter>

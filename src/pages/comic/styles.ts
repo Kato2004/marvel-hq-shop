@@ -52,12 +52,20 @@ export const ShoppingArea = styled.div`
   }
   .top {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin-bottom: 10px;
     span {
       cursor: default;
-      background-color: rgb(200, 200, 200);
-      color: #000;
       padding: 10px;
+    }
+    .is-rare {
+      color: #999;
+      background-color: #fdff00;
+    }
+    .price {
+      color: #000;
+      background-color: #c8c8c8;
     }
   }
   .bottom {
