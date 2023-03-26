@@ -67,6 +67,28 @@ export const ShoppingArea = styled.div`
   }
 `;
 
+export const AddedCartWarning = styled.div<{
+  show: boolean;
+}>`
+  width: 80vw;
+  max-width: 600px;
+  position: absolute;
+  top: 15vh;
+  margin: 0 auto;
+  background-color: #bbf3f9;
+  color: #437b81;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  opacity: ${(props) => (props.show ? "1" : "0")};
+  transition: opacity 0.5s;
+  button {
+    color: #437b81;
+    background: transparent;
+  }
+`;
+
 export const Bottom = styled.div`
   width: 100%;
   display: flex;

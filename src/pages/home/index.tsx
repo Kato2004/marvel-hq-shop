@@ -34,7 +34,6 @@ export const Home = () => {
             comic.rare = false;
           }
         });
-        console.log(res);
         setComicResponse(res.data);
       })
       .finally(() => setIsLoading(false));
@@ -47,7 +46,7 @@ export const Home = () => {
       {!isLoading && comicResponse && (
         <>
           {viewWarning && (
-            <WarningStar>
+            <WarningStar show={viewWarning}>
               <p>As HQs marcadas com uma estrela são consideradas RARAS.</p>
               <button
                 data-cy="close-warning-star"

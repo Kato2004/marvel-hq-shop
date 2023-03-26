@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import { CartContext } from "../../core/contexts/cart";
+import { PageContainer } from "../../styles/container";
 
 export const PurchaseMade = () => {
   const { setCart } = useContext(CartContext);
@@ -7,5 +8,9 @@ export const PurchaseMade = () => {
   useEffect(() => {
     setCart([]);
   }, []);
-  return <h1>Compra efetuada com sucesso</h1>;
+  return (
+    <PageContainer>
+      <h1>Compra efetuada com sucesso</h1>
+    </PageContainer>
+  );
 };

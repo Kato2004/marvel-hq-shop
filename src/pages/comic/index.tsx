@@ -9,10 +9,11 @@ import { IApiResponse, IComicData } from "../../core/types/api-response";
 import { IComics } from "../../core/types/comic";
 import { PageContainer } from "../../styles/container";
 import { transformPrice } from "../../core/helpers/transform-price";
-import { Bottom, ShoppingArea, Top } from "./styles";
+import { AddedCartWarning, Bottom, ShoppingArea, Top } from "./styles";
 
 export const ComicPage = () => {
   const { id: paramId, rare: paramIsRare } = useParams();
+  const [showAddedCartNotice, setShowAddedCartNotice] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [comicData, setComicData] = useState<IComicData<IComics[]> | null>(
     null
@@ -46,11 +47,23 @@ export const ComicPage = () => {
     thumbnail: string,
     title: string,
     isRare: boolean
-  ) => addComicToCart({ id, price, thumbnail, title, quantity: 1, isRare });
+  ) => {
+    addComicToCart({ id, price, thumbnail, title, quantity: 1, isRare });
+    setShowAddedCartNotice(true);
+    setTimeout(() => {
+      setShowAddedCartNotice(false);
+    }, 4000);
+  };
 
   return (
     <PageContainer>
       {isLoading && <Loading />}
+      <AddedCartWarning show={showAddedCartNotice}>
+        <p>Item adicionado ao carrinho</p>
+        <button onClick={() => setShowAddedCartNotice((prev) => !prev)}>
+          x
+        </button>
+      </AddedCartWarning>
       {comicData &&
         comicData.results.map((value) => {
           return (

@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { flexCenter } from "../../styles/global-styles";
 
-export const WarningStar = styled.div`
+export const WarningStar = styled.div<{ show: boolean }>`
+  opacity: ${(props) => (props.show ? "1" : "0")};
+  transition: opacity 0.5s ease-in-out;
   display: flex;
   background-color: #bbf3f9;
   color: #437b81;

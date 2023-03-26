@@ -2,7 +2,13 @@ import { useContext, useState, useEffect, memo } from "react";
 
 import { CartCard } from "../../components/cart-card";
 import { CartContext } from "../../core/contexts/cart";
-import { AddCoupon, CardContainer, ConfirmPurchase, Subtotal } from "./styles";
+import {
+  AddCoupon,
+  CardContainer,
+  ConfirmPurchase,
+  ErrorOnAddCoupon,
+  Subtotal,
+} from "./styles";
 import { PageContainer } from "../../styles/container";
 import { transformPrice } from "../../core/helpers/transform-price";
 import { coupons } from "../../example";
@@ -15,6 +21,7 @@ export const Cart = () => {
     commun: 0,
   });
   const [inputCoupon, setInputCoupon] = useState("");
+  const [errorInvalidCoupon, setErrorInvalidCoupon] = useState(false);
   const navigate = useNavigate();
 
   const MemoizedCartCard = memo(CartCard);
@@ -62,6 +69,8 @@ export const Cart = () => {
       fullDiscount.rare
         ? setSubtotal((prev) => ({ ...prev, rare: discount(prev.rare) }))
         : setSubtotal((prev) => ({ ...prev, commun: discount(prev.commun) }));
+    } else {
+      setErrorInvalidCoupon(true);
     }
   };
 
@@ -96,6 +105,12 @@ export const Cart = () => {
               >
                 Adicionar
               </button>
+              <ErrorOnAddCoupon show={errorInvalidCoupon}>
+                <p>Cupom inválido</p>
+                <button onClick={() => setErrorInvalidCoupon((prev) => !prev)}>
+                  x
+                </button>
+              </ErrorOnAddCoupon>
             </div>
           </AddCoupon>
           <Subtotal>

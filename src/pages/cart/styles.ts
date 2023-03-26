@@ -1,5 +1,20 @@
 import styled from "styled-components";
 
+export const ErrorOnAddCoupon = styled.div<{ show: boolean }>`
+  border-radius: 5px;
+  background-color: #ff6961;
+  color: #640000;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  opacity: ${(props) => (props.show ? "1" : "0")};
+  transition: opacity 0.2s;
+  button {
+    color: #640000;
+    background-color: transparent;
+  }
+`;
+
 export const CardContainer = styled.div`
   display: flex;
   width: 100%;
@@ -23,7 +38,7 @@ export const AddCoupon = styled.div`
       border-radius: 5px;
       border: 1px solid #999;
     }
-    button {
+    > button {
       background-color: #9f0013;
       color: #fff;
       padding: 7px;
