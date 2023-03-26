@@ -43,7 +43,7 @@ export const CartCard = ({
             >
               -
             </button>
-            <span>{comicCart.quantity}</span>
+            <span data-cy="comics-quantity">{comicCart.quantity}</span>
             <button
               onClick={() =>
                 updateQuantityComics(comicCart.id, comicCart.quantity + 1)

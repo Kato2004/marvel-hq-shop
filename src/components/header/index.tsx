@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Container } from "./styles";
 import { useState, useEffect, useContext } from "react";
 import { CartContext } from "../../core/contexts/cart";
+import marvelLogo from "../../assets/marvel.svg";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -25,12 +26,19 @@ export const Header = () => {
 
   return (
     <Container>
-      <Link to="/">HQ Shop</Link>
+      <Link to="/">
+        <div className="logo">
+          <img width={110} src={marvelLogo} alt="" />
+          <span>- Shop</span>
+        </div>
+      </Link>
       <nav>
-        <button onClick={() => navigate("/cart")}>
+        <button data-cy="button-cart" onClick={() => navigate("/cart")}>
           <CartIcon className="cart-icon" />
           {totalValueComics > 0 && (
-            <span className="cart-quantity">{totalValueComics}</span>
+            <span data-cy="span-total-value-comics" className="cart-quantity">
+              {totalValueComics}
+            </span>
           )}
         </button>
       </nav>

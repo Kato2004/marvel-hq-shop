@@ -9,12 +9,29 @@ export const Container = styled.header`
   background-color: #9f0013;
   width: 100%;
   padding: 0 15px;
+  position: sticky;
+  top: 0;
+  -webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.62);
+  -moz-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.62);
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.62);
+  z-index: 99;
 
   a {
     color: #fff;
     text-decoration: none;
     font-size: 2rem;
   }
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    span {
+      margin-top: 5px;
+      white-space: nowrap;
+    }
+  }
+
   nav {
     margin-top: 10px;
     display: flex;

@@ -2,11 +2,15 @@ import styled from "styled-components";
 
 export const CardContainer = styled.div`
   display: flex;
+  width: 100%;
+  max-width: 800px;
   flex-direction: column;
   gap: 5px;
 `;
 
 export const AddCoupon = styled.div`
+  width: 100%;
+  max-width: 500px;
   h4 {
     margin-bottom: 10px;
   }
@@ -30,13 +34,14 @@ export const AddCoupon = styled.div`
 `;
 
 export const Subtotal = styled.div`
+  width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   background-color: #c8c8c8;
   border-radius: 10px;
   padding: 20px;
   gap: 15px;
-  width: 100%;
   div {
     h5 {
       font-size: 16px;
@@ -50,6 +55,8 @@ export const Subtotal = styled.div`
 `;
 
 export const ConfirmPurchase = styled.div`
+  width: 100%;
+  max-width: 500px;
   h2 {
     margin-bottom: 10px;
   }

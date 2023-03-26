@@ -10,9 +10,10 @@ import { fetchDataAsync } from "../../core/helpers/get-data";
 import { IApiResponse, IComicData } from "../../core/types/api-response";
 import { IComics } from "../../core/types/comic";
 import { PageContainer } from "../../styles/container";
-import { ComicsArea, SwitchPageContainer } from "./styles";
+import { ComicsArea, SwitchPageContainer, WarningStar } from "./styles";
 
 export const Home = () => {
+  const [viewWarning, setViewWarning] = useState(true);
   const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [comicResponse, setComicResponse] = useState<IComicData<
@@ -33,6 +34,7 @@ export const Home = () => {
             comic.rare = false;
           }
         });
+        console.log(res);
         setComicResponse(res.data);
       })
       .finally(() => setIsLoading(false));
@@ -44,6 +46,17 @@ export const Home = () => {
       {!isLoading && !comicResponse && "ERRO"}
       {!isLoading && comicResponse && (
         <>
+          {viewWarning && (
+            <WarningStar>
+              <p>As HQs marcadas com uma estrela são consideradas RARAS.</p>
+              <button
+                data-cy="close-warning-star"
+                onClick={() => setViewWarning((prev) => !prev)}
+              >
+                x
+              </button>
+            </WarningStar>
+          )}
           <SwitchPageContainer>
             <button
               onClick={() =>

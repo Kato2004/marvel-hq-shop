@@ -8,6 +8,7 @@ export const Container = styled.div`
   background-color: #9f0013;
   color: #fff;
   border-radius: 5px;
+  position: relative;
   img {
     width: 100%;
     border-radius: 2px;
@@ -21,6 +22,11 @@ export const Container = styled.div`
     }
   }
 
+  span {
+    position: absolute;
+    font-size: 70px;
+    color: #fdff00;
+  }
   @media (min-width: 768px) {
     max-width: 300px;
     img {

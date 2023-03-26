@@ -6,6 +6,7 @@ import { AddCoupon, CardContainer, ConfirmPurchase, Subtotal } from "./styles";
 import { PageContainer } from "../../styles/container";
 import { transformPrice } from "../../core/helpers/transform-price";
 import { coupons } from "../../example";
+import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
   const { cart, updateQuantityComics, deleteComic } = useContext(CartContext);
@@ -14,6 +15,7 @@ export const Cart = () => {
     commun: 0,
   });
   const [inputCoupon, setInputCoupon] = useState("");
+  const navigate = useNavigate();
 
   const MemoizedCartCard = memo(CartCard);
 
@@ -64,7 +66,7 @@ export const Cart = () => {
   };
 
   return (
-    <PageContainer>
+    <PageContainer className="cart">
       {cart.length > 0 ? (
         <>
           <CardContainer className="cart-container">
@@ -109,10 +111,13 @@ export const Cart = () => {
             </div>
           </Subtotal>
           <ConfirmPurchase>
-            <h2>
-              Subtotal: R${transformPrice(subtotal.commun + subtotal.rare)}
-            </h2>
-            <button>Fechar compra</button>
+            <h2>Total: R${transformPrice(subtotal.commun + subtotal.rare)}</h2>
+            <button
+              data-cy="button-finish-purchase"
+              onClick={() => navigate("/purchase-made")}
+            >
+              Fechar compra
+            </button>
           </ConfirmPurchase>
         </>
       ) : (

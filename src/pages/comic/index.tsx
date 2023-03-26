@@ -76,6 +76,7 @@ export const ComicPage = () => {
                   <div className="purchase-shares">
                     <button className="buy">Comprar</button>
                     <button
+                      data-cy="button-add-cart"
                       onClick={() =>
                         addCart(
                           value.id,
