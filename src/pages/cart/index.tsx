@@ -86,10 +86,14 @@ export const Cart = () => {
             <h4>Adicionar cupom</h4>
             <div className="add-cupom">
               <input
+                data-cy="input-coupon"
                 onChange={(e) => setInputCoupon(e.target.value)}
                 type="text"
               />
-              <button onClick={() => applyCoupon(inputCoupon)}>
+              <button
+                data-cy="btn-add-coupon"
+                onClick={() => applyCoupon(inputCoupon)}
+              >
                 Adicionar
               </button>
             </div>
@@ -113,7 +117,7 @@ export const Cart = () => {
           <ConfirmPurchase>
             <h2>Total: R${transformPrice(subtotal.commun + subtotal.rare)}</h2>
             <button
-              data-cy="button-finish-purchase"
+              data-cy="btn-finish-purchase"
               onClick={() => navigate("/purchase-made")}
             >
               Fechar compra

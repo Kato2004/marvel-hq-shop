@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineShoppingCart as CartIcon } from "react-icons/ai";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Loading } from "../../components/loading";
 import { CartContext } from "../../core/contexts/cart";
@@ -17,6 +17,7 @@ export const ComicPage = () => {
   const [comicData, setComicData] = useState<IComicData<IComics[]> | null>(
     null
   );
+  const navigate = useNavigate();
 
   const { addComicToCart } = useContext(CartContext);
 
@@ -74,9 +75,15 @@ export const ComicPage = () => {
                     </span>
                   </div>
                   <div className="purchase-shares">
-                    <button className="buy">Comprar</button>
                     <button
-                      data-cy="button-add-cart"
+                      data-cy="btn-confirm-purchase"
+                      onClick={() => navigate("/purchase-made")}
+                      className="buy"
+                    >
+                      Comprar
+                    </button>
+                    <button
+                      data-cy="btn-add-cart"
                       onClick={() =>
                         addCart(
                           value.id,

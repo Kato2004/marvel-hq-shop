@@ -15,6 +15,7 @@ interface ICartProvider {
 
 const defaultCartContextValues: ContextValues = {
   cart: [],
+  setCart: () => {},
   addComicToCart: () => {},
   updateQuantityComics: () => {},
   deleteComic: () => {},
@@ -72,11 +73,12 @@ export const CartProvider = ({ children }: ICartProvider) => {
   const cartProviderValue = useMemo(
     () => ({
       cart,
+      setCart,
       addComicToCart,
       updateQuantityComics,
       deleteComic,
     }),
-    [cart, addComicToCart, updateQuantityComics, deleteComic]
+    [cart, setCart, addComicToCart, updateQuantityComics, deleteComic]
   );
 
   return (

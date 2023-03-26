@@ -1,3 +1,11 @@
+import { useContext, useEffect } from "react";
+import { CartContext } from "../../core/contexts/cart";
+
 export const PurchaseMade = () => {
-  return <h1>Compra Efetuada</h1>;
+  const { setCart } = useContext(CartContext);
+
+  useEffect(() => {
+    setCart([]);
+  }, []);
+  return <h1>Compra efetuada com sucesso</h1>;
 };

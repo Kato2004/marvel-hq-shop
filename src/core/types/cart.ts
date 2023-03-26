@@ -9,6 +9,7 @@ export interface ICart {
 
 export interface ContextValues {
   cart: ICart[];
+  setCart: React.Dispatch<React.SetStateAction<ICart[]>>;
   addComicToCart: (comic: ICart) => void;
   updateQuantityComics: (comicId: number, newQuantity: number) => void;
   deleteComic: (comicId: number) => void;

@@ -59,14 +59,18 @@ export const Home = () => {
           )}
           <SwitchPageContainer>
             <button
+              data-cy="back-page-btn"
               onClick={() =>
                 offset / 20 + 1 != 1 && setOffset((prev) => prev - 20)
               }
             >
               <ArrowLeft />
             </button>
-            <span>{offset / 20 + 1}</span>
-            <button onClick={() => setOffset((prev) => prev + 20)}>
+            <span data-cy="show-current-page">{offset / 20 + 1}</span>
+            <button
+              data-cy="page-forward-btn"
+              onClick={() => setOffset((prev) => prev + 20)}
+            >
               <ArrowRight />
             </button>
           </SwitchPageContainer>

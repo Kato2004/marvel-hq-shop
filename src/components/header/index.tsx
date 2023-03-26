@@ -26,14 +26,14 @@ export const Header = () => {
 
   return (
     <Container>
-      <Link to="/">
+      <Link to="/" data-cy="btn-return-home">
         <div className="logo">
           <img width={110} src={marvelLogo} alt="" />
           <span>- Shop</span>
         </div>
       </Link>
       <nav>
-        <button data-cy="button-cart" onClick={() => navigate("/cart")}>
+        <button data-cy="btn-cart" onClick={() => navigate("/cart")}>
           <CartIcon className="cart-icon" />
           {totalValueComics > 0 && (
             <span data-cy="span-total-value-comics" className="cart-quantity">
