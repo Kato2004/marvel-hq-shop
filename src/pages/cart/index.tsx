@@ -1,18 +1,19 @@
-import { useContext, useState, useEffect, memo } from "react";
+import { memo, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { CartCard } from "../../components/cart-card";
 import { CartContext } from "../../core/contexts/cart";
+import { transformPrice } from "../../core/helpers/transform-price";
+import { coupons } from "../../data/coupons";
+import { PageContainer } from "../../styles/container";
 import {
   AddCoupon,
   CardContainer,
   ConfirmPurchase,
   ErrorOnAddCoupon,
+  MessageValidCoupon,
   Subtotal,
 } from "./styles";
-import { PageContainer } from "../../styles/container";
-import { transformPrice } from "../../core/helpers/transform-price";
-import { coupons } from "../../example";
-import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
   const { cart, updateQuantityComics, deleteComic } = useContext(CartContext);
@@ -22,6 +23,7 @@ export const Cart = () => {
   });
   const [inputCoupon, setInputCoupon] = useState("");
   const [errorInvalidCoupon, setErrorInvalidCoupon] = useState(false);
+  const [validCoupon, setValidCoupon] = useState(false);
   const navigate = useNavigate();
 
   const MemoizedCartCard = memo(CartCard);
@@ -45,32 +47,40 @@ export const Cart = () => {
     let fullDiscount = {
       discount: 0,
       rare: false,
+      applied: false,
     };
 
-    coupons.forEach((coupon) => {
-      if (coupon === inputCoupon) {
-        if (coupon.slice(0, 2) === "WQ") {
-          fullDiscount = {
-            discount: Number(coupon.slice(-1)) / 10,
-            rare: true,
-          };
-        } else if (coupon.slice(0, 2) === "TC") {
-          fullDiscount = {
-            discount: Number(coupon.slice(-1)) / 10,
-            rare: false,
-          };
-        }
-      }
-    });
-    if (fullDiscount.discount != 0) {
-      const discount = (value: number) =>
-        Number((value * fullDiscount.discount).toFixed(2));
+    if (!validCoupon) {
+      setErrorInvalidCoupon(false);
 
-      fullDiscount.rare
-        ? setSubtotal((prev) => ({ ...prev, rare: discount(prev.rare) }))
-        : setSubtotal((prev) => ({ ...prev, commun: discount(prev.commun) }));
-    } else {
-      setErrorInvalidCoupon(true);
+      coupons.forEach((coupon) => {
+        if (coupon === inputCoupon) {
+          if (coupon.slice(0, 2) === "WQ") {
+            fullDiscount = {
+              discount: Number(coupon.slice(-1)) / 10,
+              rare: true,
+              applied: true,
+            };
+          } else if (coupon.slice(0, 2) === "TC") {
+            fullDiscount = {
+              discount: Number(coupon.slice(-1)) / 10,
+              rare: false,
+              applied: true,
+            };
+          }
+        }
+      });
+      if (fullDiscount.discount != 0) {
+        const discount = (value: number) =>
+          Number((value * fullDiscount.discount).toFixed(2));
+
+        setValidCoupon(true);
+        fullDiscount.rare
+          ? setSubtotal((prev) => ({ ...prev, rare: discount(prev.rare) }))
+          : setSubtotal((prev) => ({ ...prev, commun: discount(prev.commun) }));
+      } else {
+        setErrorInvalidCoupon(true);
+      }
     }
   };
 
@@ -96,12 +106,17 @@ export const Cart = () => {
             <div className="add-cupom">
               <input
                 data-cy="input-coupon"
-                onChange={(e) => setInputCoupon(e.target.value)}
+                onChange={(e) => {
+                  setInputCoupon(e.target.value);
+                  setValidCoupon(false);
+                }}
                 type="text"
               />
               <button
                 data-cy="btn-add-coupon"
-                onClick={() => applyCoupon(inputCoupon)}
+                onClick={() =>
+                  !validCoupon && inputCoupon != "" && applyCoupon(inputCoupon)
+                }
               >
                 Adicionar
               </button>
@@ -111,6 +126,12 @@ export const Cart = () => {
                   x
                 </button>
               </ErrorOnAddCoupon>
+              <MessageValidCoupon show={validCoupon}>
+                <p>Cupom válido, continue com sua compra</p>
+                <button onClick={() => setValidCoupon((prev) => !prev)}>
+                  x
+                </button>
+              </MessageValidCoupon>
             </div>
           </AddCoupon>
           <Subtotal>

@@ -7,10 +7,23 @@ export const ErrorOnAddCoupon = styled.div<{ show: boolean }>`
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  opacity: ${(props) => (props.show ? "1" : "0")};
-  transition: opacity 0.2s;
+  display: ${(props) => (props.show ? "flex" : "none")};
   button {
     color: #640000;
+    background-color: transparent;
+  }
+`;
+
+export const MessageValidCoupon = styled.div<{ show: boolean }>`
+  border-radius: 5px;
+  background-color: #bdecb6;
+  color: #1d5616;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  display: ${(props) => (props.show ? "flex" : "none")};
+  button {
+    color: #1d5616;
     background-color: transparent;
   }
 `;

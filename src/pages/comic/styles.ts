@@ -80,9 +80,7 @@ export const AddedCartWarning = styled.div<{
   justify-content: space-between;
   padding: 20px;
   border-radius: 5px;
-  display: flex;
-  opacity: ${(props) => (props.show ? "1" : "0")};
-  transition: opacity 0.5s;
+  display: ${(props) => (props.show ? "flex" : "none")};
   button {
     color: #437b81;
     background: transparent;
