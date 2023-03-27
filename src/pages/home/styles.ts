@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { flexCenter } from "../../styles/global-styles";
 
-export const WarningStar = styled.div<{ show: boolean }>`
+export const WarningStar = styled.aside<{ show: boolean }>`
   opacity: ${(props) => (props.show ? "1" : "0")};
   transition: opacity 0.5s ease-in-out;
   display: flex;
@@ -20,7 +20,7 @@ export const WarningStar = styled.div<{ show: boolean }>`
   }
 `;
 
-export const ComicsArea = styled.div`
+export const ComicsArea = styled.section`
   ${flexCenter}
   flex-direction: column;
   gap: 20px;
@@ -32,7 +32,7 @@ export const ComicsArea = styled.div`
   max-width: 1600px;
 `;
 
-export const SwitchPageContainer = styled.div`
+export const SwitchPageContainer = styled.nav`
   display: flex;
   align-items: center;
   gap: 15px;

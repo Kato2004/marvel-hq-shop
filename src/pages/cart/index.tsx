@@ -89,7 +89,9 @@ export const Cart = () => {
       {cart.length > 0 ? (
         <>
           <CardContainer className="cart-container">
-            <h2>Carrinho</h2>
+            <header>
+              <h2>Carrinho</h2>
+            </header>
             {cart.map((comic) => {
               return (
                 <MemoizedCartCard
@@ -135,20 +137,20 @@ export const Cart = () => {
             </div>
           </AddCoupon>
           <Subtotal>
-            <div className="rare">
-              <h5>Subtotal comum</h5>
+            <section>
+              <h3>Subtotal comum</h3>
               <span>
                 R$
                 {transformPrice(subtotal.commun)}
               </span>
-            </div>
-            <div className="common">
-              <h5>Subtotal raro</h5>
+            </section>
+            <section>
+              <h3>Subtotal raro</h3>
               <span>
                 R$
                 {transformPrice(subtotal.rare)}
               </span>
-            </div>
+            </section>
           </Subtotal>
           <ConfirmPurchase>
             <h2>Total: R${transformPrice(subtotal.commun + subtotal.rare)}</h2>

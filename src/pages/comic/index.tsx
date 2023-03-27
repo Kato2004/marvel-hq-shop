@@ -36,9 +36,7 @@ export const ComicPage = () => {
         });
         setComicData(dataCopy);
       })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .finally(() => setIsLoading(false));
   }, []);
 
   const addCart = (
@@ -50,9 +48,7 @@ export const ComicPage = () => {
   ) => {
     addComicToCart({ id, price, thumbnail, title, quantity: 1, isRare });
     setShowAddedCartNotice(true);
-    setTimeout(() => {
-      setShowAddedCartNotice(false);
-    }, 4000);
+    setTimeout(() => setShowAddedCartNotice(false), 4000);
   };
 
   return (
@@ -67,7 +63,7 @@ export const ComicPage = () => {
       {comicData &&
         comicData.results.map((value) => {
           return (
-            <div className="comic-page" key={value.id}>
+            <section className="comic-page" key={value.id}>
               <Top className="top">
                 <div className="img-container">
                   <img
@@ -162,7 +158,7 @@ export const ComicPage = () => {
                   </div>
                 )}
               </Bottom>
-            </div>
+            </section>
           );
         })}
     </PageContainer>

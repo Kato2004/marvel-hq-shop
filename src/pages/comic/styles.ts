@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { flexCenter } from "../../styles/global-styles";
 
-export const Top = styled.div`
+export const Top = styled.section`
   max-width: 500px;
   .img-container {
     max-width: 500px;
@@ -87,7 +87,7 @@ export const AddedCartWarning = styled.div<{
   }
 `;
 
-export const Bottom = styled.div`
+export const Bottom = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;

@@ -12,5 +12,4 @@ export const coupons = [
   "TC2fA2",
   "TCaqb9",
   "TC2113",
-  "TC2M95",
 ];
