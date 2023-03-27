@@ -80,6 +80,26 @@
 </div>
 
 <div>
+  <h2>Cupons</h2>
+  <h4>Comuns</h4>
+  <ul>
+    <li>TCqp98</li>
+    <li>TCPw12</li>
+    <li>TC2fA2</li>
+    <li>TCaqb9</li>
+    <li>TC2113</li>
+  </ul>
+  <h4>Raro</h4>
+  <ul>
+    <li>WQP0q2</li>
+    <li>WQ2ca4</li>
+    <li>WQ83Q1</li>
+    <li>WQd2o2</li>
+    <li>WQ1OK5</li>
+  </ul>
+</div>
+    
+<div>
   <h2>O que eu aprendi</h2>
   <p>
     Neste projeto bastante desafiador aprendi muito e me aprofundei em assuntos que eu não dava muito atenção, no caso testes e performace, o primeiro eu já estudei     e fiz testes unitários mas nunca end-2-end e gostei muito e irei me aprofundar no Cypress e entender o que deve, pode e é obrigatório ser testado para ter           certeza que todas as funcionalidades do sistema estão funcionando. Já no caso da performace não tinha tanto conhecimentos no o que a falta dela pode ocasionar,     por exemplos o uso de muitos estados e a manipulação deles a todo o momento que acaba com a experiência do usuário com lentidão e até mesmo a impossibilidade do     uso da aplicação.
