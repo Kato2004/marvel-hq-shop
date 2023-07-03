@@ -1,5 +1,5 @@
 import { transformPrice } from "../../core/helpers/transform-price";
-import { ICart } from "../../core/types/cart";
+import { ICart } from "../../core/types";
 
 import { ComicActions, Container } from "./styles";
 

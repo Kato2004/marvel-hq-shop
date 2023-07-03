@@ -1,9 +1,9 @@
 import { memo, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { CartCard } from "../../components/cart-card";
-import { CartContext } from "../../core/contexts/cart";
-import { transformPrice } from "../../core/helpers/transform-price";
+import { CartCard } from "../../components";
+import { CartContext } from "../../core/contexts";
+import { transformPrice } from "../../core/helpers";
 import { coupons } from "../../data/coupons";
 import { PageContainer } from "../../styles/container";
 import {

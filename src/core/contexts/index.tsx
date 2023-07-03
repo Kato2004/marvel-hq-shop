@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 
-import { ContextValues, ICart } from "../types/cart";
+import { ContextValues, ICart } from "../types";
 
 interface ICartProvider {
   children: ReactNode;

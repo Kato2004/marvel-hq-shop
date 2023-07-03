@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Container } from "./styles";
 import { useState, useEffect, useContext } from "react";
-import { CartContext } from "../../core/contexts/cart";
+import { CartContext } from "../../core/contexts";
 import marvelLogo from "../../assets/marvel.svg";
 
 export const Header = () => {

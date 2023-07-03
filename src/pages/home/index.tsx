@@ -4,11 +4,9 @@ import {
   AiOutlineArrowRight as ArrowRight,
 } from "react-icons/ai";
 
-import { ComicCard } from "../../components/comic-card/index";
-import { Loading } from "../../components/loading";
-import { fetchDataAsync } from "../../core/helpers/get-data";
-import { IApiResponse, IComicData } from "../../core/types/api-response";
-import { IComics } from "../../core/types/comic";
+import { ComicCard, Loading } from "../../components";
+import { fetchDataAsync } from "../../core/helpers";
+import { IApiResponse, IComicData, IComics } from "../../core/types";
 import { PageContainer } from "../../styles/container";
 import { ComicsArea, SwitchPageContainer, WarningStar } from "./styles";
 

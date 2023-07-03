@@ -2,13 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { AiOutlineShoppingCart as CartIcon } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { Loading } from "../../components/loading";
-import { CartContext } from "../../core/contexts/cart";
-import { fetchDataAsync } from "../../core/helpers/get-data";
-import { IApiResponse, IComicData } from "../../core/types/api-response";
-import { IComics } from "../../core/types/comic";
+import { Loading } from "../../components";
+import { CartContext } from "../../core/contexts";
+import { transformPrice, fetchDataAsync } from "../../core/helpers";
+import { IApiResponse, IComicData, IComics } from "../../core/types";
 import { PageContainer } from "../../styles/container";
-import { transformPrice } from "../../core/helpers/transform-price";
 import { AddedCartWarning, Bottom, ShoppingArea, Top } from "./styles";
 
 export const ComicPage = () => {

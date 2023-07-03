@@ -1,4 +1,4 @@
-import { CartProvider } from "./core/contexts/cart";
+import { CartProvider } from "./core/contexts";
 import { AllRoutes } from "./core/routes";
 import { GlobalStyle } from "./styles/global-styles";
 
