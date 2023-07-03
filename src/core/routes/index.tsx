@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { Header } from "../../components/header";
-import { Home } from "../../pages/home";
-import { ComicPage } from "../../pages/comic";
 import { Cart } from "../../pages/cart";
+import { ComicPage } from "../../pages/comic";
+import { Home } from "../../pages/home";
 import { PurchaseMade } from "../../pages/purchase-made";
 
 export const AllRoutes = () => {

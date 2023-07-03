@@ -1,10 +1,10 @@
 import { AiOutlineShoppingCart as CartIcon } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Container } from "./styles";
-import { useState, useEffect, useContext } from "react";
-import { CartContext } from "../../core/contexts";
+import { useContext, useEffect, useState } from "react";
 import marvelLogo from "../../assets/marvel.svg";
+import { CartContext } from "../../core/contexts";
+import { Container } from "./styles";
 
 export const Header = () => {
   const navigate = useNavigate();

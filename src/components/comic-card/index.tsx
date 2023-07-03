@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import { AiFillStar as StarIcon } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 import { Container } from "./styles";
 
